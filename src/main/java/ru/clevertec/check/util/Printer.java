@@ -12,7 +12,8 @@ public class Printer {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void print(File file) {
+    public static void print(String path) {
+        File file = new File(path);
         String csvFile = file.toString();
         String line;
         String cvsSplitBy = ";";

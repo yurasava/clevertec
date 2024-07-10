@@ -44,7 +44,7 @@ public final class ShoppingCartProcessor {
                     )).toList()
             );
         } else {
-            RecordResult.recordErrorResult("ERROR\nBAD REQUEST");
+            RecordResult.recordErrorResult("ERROR\nBAD REQUEST", request.saveToFile());
             throw new BadRequestException();
         }
     }
@@ -87,7 +87,7 @@ public final class ShoppingCartProcessor {
         if (RequestValidator.validateBalanceDebitCard(request)) {
             myShoppingCart.setBalanceDebitCard(balanceDebitCard);
         } else {
-            RecordResult.recordErrorResult("ERROR\nNOT ENOUGH MONEY");
+            RecordResult.recordErrorResult("ERROR\nNOT ENOUGH MONEY", request.saveToFile());
             throw new NotEnoughMoneyException();
         }
     }

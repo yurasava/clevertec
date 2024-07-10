@@ -16,12 +16,18 @@ public class ParseCommand {
         Map<Integer, Integer> idAndQuantityOfProduct = new HashMap<>();
         Integer discountCardNumber = null;
         Double balanceDebitCard = null;
+        String pathToFile = null;
+        String saveToFile = null;
 
         for (String arg : command) {
             if (arg.startsWith("discountCard=")) {
                 discountCardNumber = Integer.valueOf(arg.split("=")[1]);
             } else if (arg.startsWith("balanceDebitCard=")) {
                 balanceDebitCard = Double.parseDouble(arg.split("=")[1]);
+            } else if (arg.startsWith("pathToFile=")) {
+                pathToFile = arg.split("=")[1];
+            } else if (arg.startsWith("saveToFile=")) {
+                saveToFile = arg.split("=")[1];
             } else {
                 String[] parts = arg.split("-");
                 Integer productId = Integer.parseInt(parts[0]);
@@ -30,6 +36,11 @@ public class ParseCommand {
                 idAndQuantityOfProduct.merge(productId, quantity, Integer::sum);
             }
         }
-        return new Request(idAndQuantityOfProduct, discountCardNumber, balanceDebitCard);
+
+//        if (pathToFile == null || pathToFile.isBlank()) {
+//            RecordResult.recordErrorResult("ERROR\nBAD REQUEST", saveToFile);
+//        }
+
+        return new Request(idAndQuantityOfProduct, discountCardNumber, balanceDebitCard, pathToFile, saveToFile);
     }
 }

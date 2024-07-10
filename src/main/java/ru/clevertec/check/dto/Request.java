@@ -4,5 +4,7 @@ import java.util.Map;
 
 public record Request(Map<Integer, Integer> idAndQuantityOfProduct,
                       Integer discountCardNumber,
-                      Double balanceDebitCard) {
+                      Double balanceDebitCard,
+                      String pathToFile,
+                      String saveToFile) {
 }

@@ -17,21 +17,25 @@ public class CsvProductLoader {
     }
 
     public static void loadProducts(String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                Integer id = Integer.parseInt(parts[0]);
-                String description = parts[1];
-                double price = Double.parseDouble(parts[2]);
-                int quantityInStock = Integer.parseInt(parts[3]);
-                boolean wholesaleProduct = Boolean.parseBoolean(parts[4]);
-                Product product = new Product(id, description, price, quantityInStock, wholesaleProduct);
-                products.put(id, product);
+        if (path != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+                String line;
+                reader.readLine();
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(";");
+                    Integer id = Integer.parseInt(parts[0]);
+                    String description = parts[1];
+                    double price = Double.parseDouble(parts[2]);
+                    int quantityInStock = Integer.parseInt(parts[3]);
+                    boolean wholesaleProduct = Boolean.parseBoolean(parts[4]);
+                    Product product = new Product(id, description, price, quantityInStock, wholesaleProduct);
+                    products.put(id, product);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            RecordResult.recordErrorResult("ERROR\nBAD REQUEST", "src/error_result.csv");
         }
     }
 

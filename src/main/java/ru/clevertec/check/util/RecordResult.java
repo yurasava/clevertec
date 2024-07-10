@@ -3,6 +3,7 @@ package ru.clevertec.check.util;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class RecordResult {
 
@@ -10,7 +11,8 @@ public class RecordResult {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void recordResult(String result, File file) {
+    public static void recordResult(String result, String path) {
+        File file = new File(path);
 
         if (file.exists()) {
             file.delete();
@@ -29,8 +31,7 @@ public class RecordResult {
         }
     }
 
-    public static void recordErrorResult(String message) {
-        File file = new File("src", "result.csv");
-        recordResult(message, file);
+    public static void recordErrorResult(String message, String path) {
+        recordResult(message, Objects.requireNonNullElse(path, "src/error_result.csv"));
     }
 }
